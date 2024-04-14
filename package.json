@@ -1,0 +1,21 @@
+{
+    "name": "pkeera",
+    "version": "0.1.0",
+    "description": "A brief description of your project",
+    "main": "server/server.js",
+    "scripts": {
+        "start": "node server/server.js"
+    },
+    "keywords": [],
+    "author": "Your Name",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "connect-mongodb-session": "^5.0.0",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "express-session": "^1.18.0",
+        "mongodb": "^6.5.0",
+        "mongoose": "^8.3.1"
+    }
+}
