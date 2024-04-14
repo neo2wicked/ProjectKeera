@@ -1,44 +1,55 @@
-require('dotenv').config(); // Finally, where it belongs. At the top, like a king.
+require('dotenv').config();
 
 const express = require('express');
-// const bodyParser = require('body-parser'); // Let's leave this relic in the past where it belongs.
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const path = require('path');
 
 const authController = require('../userinfo/authController');
 const dashboardController = require('../userinfo/dashboardController');
+const User = require('../userinfo/userModel');
 
 const app = express();
-const port = process.env.PORT || 3000; // Look at you, being all dynamic and flexible.
+const port = process.env.PORT || 3000;
 
-// MongoDB session store setup, now with 100% more environment variable loading action!
 const store = new MongoDBStore({
   uri: process.env.DB_CONNECTION_STRING,
   collection: 'sessions'
 });
 
-// Catch errors, because they will happen. Oh, they will happen.
 store.on('error', function(error) {
-  console.error(`Store meltdown: ${error}`); // At least you're consistent with your error handling. I'll give you that.
+  console.error(`Session store error: ${error}`);
 });
 
-// Middleware, because who doesn't like a little extra with their requests?
-app.use(express.urlencoded({ extended: false })); // Welcome to the future.
-app.use(express.json()); // JSON all the way, baby.
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'default_secret', // Look at you, planning for contingencies.
+  secret: process.env.SESSION_SECRET || 'default_secret',
   resave: false,
   saveUninitialized: false,
   store: store
 }));
 
-// Serve static files, because we're civilized people.
-const path = require('path');
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-// Routes, because an app without routes is like a car without wheels.
+app.get('/userinfo', async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).send({ error: 'Unauthorized access. Please login.' });
+  }
+  try {
+    const user = await User.findById(req.session.userId);
+    if (!user) {
+      return res.status(404).send({ error: 'User not found.' });
+    }
+    res.send({ userName: user.email });
+  } catch (error) {
+    console.error(`Error fetching user info: ${error}`);
+    res.status(500).send({ error: 'Server error. Please try again later.' });
+  }
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
 });
@@ -52,18 +63,13 @@ app.post('/signup', authController.signup);
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.error(`Failed to destroy session: ${err}`); // Again, console.error, because we like to be proper.
-    } else {
-      res.redirect('/');
+      console.error(`Session destruction error: ${err}`);
+      return res.status(500).send('Error logging out. Please try again.');
     }
+    res.redirect('/');
   });
 });
 
-// Connect to MongoDB, now with the environment variable actually loaded before use.
-mongoose.connect(process.env.DB_CONNECTION_STRING)
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Server running on http://localhost:${port}. Now with less deprecated options!`);
-    });
-  })
-  .catch(err => console.error(`MongoDB threw a tantrum: ${err}`)); // Consistency is key, console.error for the win.
+mongoose.connect(process.env.DB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => app.listen(port, () => console.log(`Server running on http://localhost:${port}.`)))
+  .catch(err => console.error(`Database connection error: ${err}`));
