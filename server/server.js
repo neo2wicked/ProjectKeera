@@ -5,8 +5,10 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const path = require('path');
+const celebrate = require('celebrate');
 
 // Importing models like a boss
+const Settings = require('../models/Settings');
 const Organization = require('../models/Organization');
 const Project = require('../models/Project');
 const Question = require('../models/Question');
@@ -39,6 +41,42 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
+//Settings Routes
+app.get('/api/settings', async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).send({ error: 'Unauthorized access. Please login.' });
+  }
+  try {
+    const settings = await Settings.findOne({ userId: req.session.userId });
+    if (!settings) {
+      // If no settings found, return defaults
+      return res.send({ emailNotifications: false, darkMode: false });
+    }
+    res.send(settings);
+  } catch (error) {
+    console.error(`Error fetching settings: ${error}`);
+    res.status(500).send({ error: 'Server error. Please try again later.' });
+  }
+});
+
+app.post('/api/settings', celebrate.celebrate({
+  body: celebrate.Joi.object().keys({
+    emailNotifications: celebrate.Joi.boolean().required(),
+    darkMode: celebrate.Joi.boolean().required(),
+  }),
+}), async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).send({ error: 'Unauthorized access. Please login.' });
+  }
+  try {
+    const settings = await Settings.findOneAndUpdate({ userId: req.session.userId }, req.body, { new: true, upsert: true });
+    res.send(settings);
+  } catch (error) {
+    console.error(`Error updating settings: ${error}`);
+    res.status(500).send({ error: 'Server error. Please try again later.' });
+  }
+});
 
 // Here comes the new shiny routes
 // Create Organization
