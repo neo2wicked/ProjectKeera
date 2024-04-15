@@ -6,6 +6,12 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const path = require('path');
 
+// Importing models like a boss
+const Organization = require('../models/Organization');
+const Project = require('../models/Project');
+const Question = require('../models/Question');
+const Interviewee = require('../models/Interviewee');
+const Response = require('../models/Response');
 const authController = require('../userinfo/authController');
 const dashboardController = require('../userinfo/dashboardController');
 const User = require('../userinfo/userModel');
@@ -34,6 +40,63 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
+// Here comes the new shiny routes
+// Create Organization
+app.post('/organizations', async (req, res) => {
+  try {
+    const organization = new Organization(req.body);
+    await organization.save();
+    res.status(201).send(organization);
+  } catch (error) {
+    res.status(400).send(error.toString());
+  }
+});
+
+// Create Project
+app.post('/projects', async (req, res) => {
+  try {
+    const project = new Project(req.body);
+    await project.save();
+    res.status(201).send(project);
+  } catch (error) {
+    res.status(400).send(error.toString());
+  }
+});
+
+// Add Question
+app.post('/questions', async (req, res) => {
+  try {
+    const question = new Question(req.body);
+    await question.save();
+    res.status(201).send(question);
+  } catch (error) {
+    res.status(400).send(error.toString());
+  }
+});
+
+// Register Interviewee
+app.post('/interviewees', async (req, res) => {
+  try {
+    const interviewee = new Interviewee(req.body);
+    await interviewee.save();
+    res.status(201).send(interviewee);
+  } catch (error) {
+    res.status(400).send(error.toString());
+  }
+});
+
+// Record Response
+app.post('/responses', async (req, res) => {
+  try {
+    const response = new Response(req.body);
+    await response.save();
+    res.status(201).send(response);
+  } catch (error) {
+    res.status(400).send(error.toString());
+  }
+});
+
+// The rest of your existing routes remain unchanged
 app.get('/userinfo', async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).send({ error: 'Unauthorized access. Please login.' });
