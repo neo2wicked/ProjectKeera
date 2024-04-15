@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Requests</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Submit a Change Request</h1>
+    <form id="changeRequestForm">
+        <label for="requestTitle">Title:</label>
+        <input type="text" id="requestTitle" name="requestTitle" required>
+        <label for="requestDescription">Description:</label>
+        <textarea id="requestDescription" name="requestDescription" required></textarea>
+        <button type="submit">Submit Request</button>
+    </form>
+
+    <h2>Submitted Requests</h2>
+    <ul id="requestsList">
+        <!-- Requests will be listed here -->
+    </ul>
+
+    <script src="js/changereq.js"></script>
+</body>
+</html>
