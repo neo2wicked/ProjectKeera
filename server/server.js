@@ -91,13 +91,33 @@ app.post('/organizations', async (req, res) => {
 });
 
 // Create Project
-app.post('/projects', async (req, res) => {
+app.post('/api/projects', async (req, res) => {
+  let { organizationName, name } = req.body;
+
+  if (!organizationName || !name) {
+    return res.status(400).send({ message: "Missing required fields. Try actually filling out the form next time." });
+  }
+
+  // Normalize the organization name to improve consistency
+  organizationName = organizationName.trim().toLowerCase();
+
   try {
-    const project = new Project(req.body);
+    // Check if the organization exists, if not, create it
+    let organization = await Organization.findOne({ name: organizationName });
+    if (!organization) {
+      organization = new Organization({ name: organizationName });
+      await organization.save();
+    }
+
+    // Now that we have an organization, either found or created, proceed with project creation
+    const project = new Project({
+      organizationId: organization._id, // Use the found or newly created organization's ID
+      name
+    });
     await project.save();
     res.status(201).send(project);
   } catch (error) {
-    res.status(400).send(error.toString());
+    res.status(500).send({ message: "Failed to create project due to an unforeseen server hiccup.", error: error.toString() });
   }
 });
 
@@ -171,6 +191,6 @@ app.get('/logout', (req, res) => {
   });
 });
 
-mongoose.connect(process.env.DB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DB_CONNECTION_STRING)
   .then(() => app.listen(port, () => console.log(`Server running on http://localhost:${port}.`)))
   .catch(err => console.error(`Database connection error: ${err}`));
