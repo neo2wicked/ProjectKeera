@@ -17,11 +17,15 @@ h1 {
 
 /* Login and Signup Page Styles */
 .login-container, .signup-container {
-    margin-top: 50px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: inline-block;
+    width: 40%; /* Adjusted width for a more substantial presence */
+    min-width: 300px; /* Minimum width to ensure usability on smaller screens */
+    margin: 50px auto; /* Centering it vertically and horizontally */
+    padding: 40px; /* More padding for a better visual spacing */
+    border: 2px solid #ccc; /* Slightly thicker border for a more defined box */
+    border-radius: 8px; /* Larger border radius for a softer look */
+    display: block; /* Changed to block to better control width */
+    background-color: #f9f9f9; /* A light background to contrast with the border */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for a 3D effect */
 }
 
 .form-group {
