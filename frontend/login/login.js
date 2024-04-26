@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault(); // Stop the form from submitting the traditional way, because we're fancy and use fetch.
 
         // Grab the values from our form fields.
-        const email = document.querySelector('#email').value; // Updated to email
+        const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
 
         // Attempt to talk to the server using fetch.
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Content-Type': 'application/json', // Telling the server we're sending JSON.
                 },
                 body: JSON.stringify({
-                    email: email, // Updated to email
+                    email: email,
                     password: password,
                 }),
             });
@@ -37,5 +37,16 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Login failed:', error); // Log it out for the devs.
             alert('Something went wrong. Please try again.'); // And alert the user, because something did indeed go wrong.
         }
+    });
+
+    // Toggle password visibility
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordInput = document.querySelector('#password');
+    togglePassword.addEventListener('click', function(e) {
+        // Toggle the type attribute using a simple conditional statement
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        // Toggle the eye slash icon
+        this.src = type === 'text' ? 'logos/eye-closed.png' : 'logos/eye-open.png';
     });
 });
