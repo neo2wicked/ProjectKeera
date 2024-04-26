@@ -95,3 +95,15 @@ nav ul li {
     width: auto;
     cursor: pointer; /* Ensure it's clear this is clickable */
 }
+/* Forgot Password Page Styles */
+.forgot-password-container {
+    width: 40%; /* Match the width of login and signup containers */
+    min-width: 300px; /* Minimum width for smaller screens */
+    margin: 50px auto; /* Centering it vertically and horizontally */
+    padding: 40px; /* Consistent padding for visual spacing */
+    border: 2px solid #ccc; /* Defined border for clarity */
+    border-radius: 8px; /* Softened corners for aesthetics */
+    display: block; /* Ensures proper block display */
+    background-color: #f9f9f9; /* Light background for contrast */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
