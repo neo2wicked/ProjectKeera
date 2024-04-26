@@ -82,4 +82,16 @@ nav ul li {
     margin-top: 20px;
     text-align: left;
 }
+.password-group {
+    position: relative;
+}
 
+.password-group img {
+    position: absolute;
+    right: 0px;
+    top: 55%; /* Center vertically */
+    transform: translateY(-0%); /* Adjust to perfectly center */
+    height: 20px; /* Adjust size as needed */
+    width: auto;
+    cursor: pointer; /* Ensure it's clear this is clickable */
+}
