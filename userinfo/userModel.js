@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 // Define the schema for our user model
 const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
   email: { // Changed from username to email
     type: String,
     required: true,
