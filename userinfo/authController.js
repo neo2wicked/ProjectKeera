@@ -5,21 +5,27 @@ const authController = {};
 
 // Signup function
 authController.signup = async (req, res) => {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    return res.status(400).send('Missing username, email, or password');
+  }
+
   try {
-    // Encrypt the password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    // Create a new user
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
-      email: req.body.email, // Goodbye username, hello email
+      username,
+      email,
       password: hashedPassword
     });
-    // Save the user to the database
     await user.save();
-    // Redirect to login page after signup
     res.redirect('/');
   } catch (error) {
-    console.log(error);
-    res.status(500).send('Error registering new user, please try again.');
+    console.error('Signup Error:', error);
+    if (error.code === 11000) {
+      res.status(409).send('Username or email already in use');
+    } else {
+      res.status(500).send('Error registering new user, please try again.');
+    }
   }
 };
 
