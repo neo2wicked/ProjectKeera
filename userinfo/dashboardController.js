@@ -10,9 +10,11 @@ const dashboardController = async (req, res) => {
       // Find the user by their session userId
       const user = await User.findById(req.session.userId);
       if (user) {
-        // If the user is found, send the dashboard HTML file
-        // You might want to send user-specific data to the dashboard here
-        res.sendFile(path.join(__dirname, '..', 'frontend', 'dashboard.html'));
+        // If the user is found, send user-specific data to the dashboard
+        // Including the first name for a personalized greeting
+        res.json({
+          firstName: user.firstName
+        });
       } else {
         // If the user is not found, possibly because the session userId is invalid
         res.status(404).send('User not found');
