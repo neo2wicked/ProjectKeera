@@ -5,19 +5,22 @@ const authController = {};
 
 // Signup function
 authController.signup = async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
-    return res.status(400).send('Missing username, email, or password');
+  const { username, firstName, lastName, email, password } = req.body;
+  if (!username || !firstName || !lastName || !email || !password) {
+    return res.status(400).send('Missing fields');
   }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
       username,
+      firstName,  // Make sure these fields are correctly assigned
+      lastName,
       email,
       password: hashedPassword
     });
     await user.save();
+    console.log('User saved:', user); // This will confirm what is being saved
     res.redirect('/');
   } catch (error) {
     console.error('Signup Error:', error);
@@ -39,8 +42,8 @@ authController.login = async (req, res) => {
       if (await bcrypt.compare(req.body.password, user.password)) {
         // Store user information in session
         req.session.userId = user._id;
-        // Redirect to dashboard after successful login
-        res.redirect('/dashboard');
+        // Redirect to dashboard.html after successful login
+        res.redirect('/dashboard.html'); // Redirect to the actual dashboard HTML page
       } else {
         res.status(401).send('Incorrect password');
       }
