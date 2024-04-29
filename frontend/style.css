@@ -2,17 +2,62 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff; /* As white as a blank canvas */
 }
 
 .container {
-    width: 80%;
+    width: 90%; /* A bit more breathing room */
     margin: 0 auto;
     text-align: center;
+    background-color: #ffffff; /* Matching the background for that seamless look */
+    padding: 20px; /* Adding some padding to not make everything look squished */
+    border-radius: 8px; /* Soft edges, because sharp corners are so last year */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* A subtle shadow to pretend it's floating */
 }
 
 h1 {
-    color: #333;
+    color: #3f51b5; /* A bold indigo to make the title pop */
+}
+
+/* Navbar Styles */
+nav {
+    background-color: #3949ab; /* A deeper indigo for contrast */
+    padding: 10px 0;
+    border-radius: 5px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav a {
+    color: #ffffff; /* Pure white for maximum contrast */
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #c5cae9; /* A light indigo on hover */
+    text-decoration: underline;
+}
+
+/* Dashboard Content Styles */
+.dashboard-content {
+    background-color: #ffffff; /* Pure white background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+    margin-top: 20px;
+    text-align: left;
 }
 
 /* Login and Signup Page Styles */
@@ -45,43 +90,31 @@ h1 {
     border-radius: 5px;
 }
 
+/* Button Enhancements */
 button {
-    background-color: #007bff;
+    background-color: #009688; /* A refreshing teal */
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #4db6ac; /* A lighter teal for hover */
 }
 
 a {
-    color: #007bff;
+    color: #3f51b5; /* Echoing the header color for consistency */
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #303f9f; /* A darker shade for hover */
 }
 
-/* Dashboard Styles */
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-.dashboard-content {
-    margin-top: 20px;
-    text-align: left;
-}
 .password-group {
     position: relative;
 }
