@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  firstName: { // New field
+    type: String,
+    required: true
+  },
+  lastName: { // New field
+    type: String,
+    required: true
   }
   // Removed the separate email field since we're consolidating
 });
