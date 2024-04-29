@@ -4,6 +4,8 @@ export async function handleSignup(event) {
     const form = event.target;
     const formData = new FormData(form);
     const username = formData.get('username'); // Make sure this matches the name attribute in your HTML input for username
+    const firstName = formData.get('firstName'); // Added firstName
+    const lastName = formData.get('lastName'); // Added lastName
     const email = formData.get('email');
     const password = formData.get('password');
     const confirmPassword = formData.get('confirmPassword');
@@ -21,7 +23,7 @@ export async function handleSignup(event) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, email, password }), // Make sure to send the username too!
+            body: JSON.stringify({ username, firstName, lastName, email, password }), // Now sending firstName and lastName too!
         });
 
         if (response.ok) {
