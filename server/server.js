@@ -155,7 +155,7 @@ app.post('/responses', async (req, res) => {
 });
 
 // The rest of your existing routes remain unchanged
-app.get('/userinfo', async (req, res) => {
+app.get('/api/userinfo', async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).send({ error: 'Unauthorized access. Please login.' });
   }
@@ -164,7 +164,7 @@ app.get('/userinfo', async (req, res) => {
     if (!user) {
       return res.status(404).send({ error: 'User not found.' });
     }
-    res.send({ userName: user.email });
+    res.send({ firstName: user.firstName });
   } catch (error) {
     console.error(`Error fetching user info: ${error}`);
     res.status(500).send({ error: 'Server error. Please try again later.' });
@@ -194,3 +194,30 @@ app.get('/logout', (req, res) => {
 mongoose.connect(process.env.DB_CONNECTION_STRING)
   .then(() => app.listen(port, () => console.log(`Server running on http://localhost:${port}.`)))
   .catch(err => console.error(`Database connection error: ${err}`));
+
+app.get('/dashboard.html', (req, res) => {
+  if (!req.session.userId) {
+    res.redirect('/login.html'); // Redirect to login if not authenticated
+  } else {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'dashboard.html'));
+  }
+});
+
+authController.login = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      if (await bcrypt.compare(req.body.password, user.password)) {
+        req.session.userId = user._id;
+        res.redirect('/dashboard.html'); // Redirect to the actual dashboard HTML page
+      } else {
+        res.status(401).send('Incorrect password');
+      }
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error logging in, please try again.');
+  }
+};
