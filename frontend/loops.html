@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop Creation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create a New Loop</h1>
+        <form id="projectForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="organizationName">Organization Name:</label>
+                <input type="text" id="companyName" name="companyName" required>
+            </div>
+            <div class="form-group">
+                <label for="companyLogo">Company Logo:</label>
+                <input type="file" id="companyLogo" name="companyLogo" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="departmentName">Department Name:</label>
+                <input type="text" id="departmentName" name="departmentName" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            <div class="form-group">
+                <label for="projectName">Project Name:</label>
+                <input type="text" id="projectName" name="projectName" required>
+            </div>
+            <div class="form-group">
+                <label for="executiveSponsor">Project Executive Sponsor:</label>
+                <input type="text" id="executiveSponsor" name="executiveSponsor" required>
+            </div>
+            <div class="form-group">
+                <label for="programLead">Program Lead:</label>
+                <input type="text" id="programLead" name="programLead" required>
+            </div>
+            <div class="form-group">
+                <label for="projectManager">Project Manager:</label>
+                <input type="text" id="projectManager" name="projectManager" required>
+            </div>
+            <div class="form-group">
+                <label for="changeManager">Change Manager:</label>
+                <input type="text" id="changeManager" name="changeManager" required>
+            </div>
+            <div class="form-group">
+                <label for="projectDetails">Project Details:</label>
+                <textarea id="projectDetails" name="projectDetails" required></textarea>
+            </div>
+            <!-- Placeholder for dynamic interview rounds -->
+            <div id="interviewRounds"></div>
+            <button type="button" onclick="addInterviewRound()">Add Interview Round</button>
+            <button type="submit">Create Project</button>
+        </form>
+    </div>
+    <script src="js/projectCreation.js"></script>
+</body>
+</html>
