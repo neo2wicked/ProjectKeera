@@ -5,19 +5,17 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault(); // Stop the form from submitting the old-fashioned way
 
         // Here's where we align our stars
-        const formData = {
-            organizationName: document.getElementById('organizationId').value, // Use the correct field for organization name
-            name: document.getElementById('projectName').value,
-        };
+        const formData = new FormData(form); // Using FormData to handle text and files
 
         try {
             // Off into the void
             const response = await fetch('/api/projects', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    // 'Content-Type': 'application/json' is not needed because FormData sets it automatically
                 },
-                body: JSON.stringify(formData),
+                body: formData,
             });
 
             if (!response.ok) {
@@ -26,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const result = await response.json();
             console.log('Project created successfully:', result);
+            // Redirect or update UI here
         } catch (error) {
             console.error('Failed to create project:', error);
         }

@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="settings-container">
         <h1>Settings</h1>
         <form id="settingsForm">
-            <div>
+            <div class="settings-form-group">
                 <label for="emailNotifications">Email Notifications</label>
                 <input type="checkbox" id="emailNotifications" name="emailNotifications">
             </div>
-            <div>
+            <div class="settings-form-group">
                 <label for="darkMode">Dark Mode</label>
                 <input type="checkbox" id="darkMode" name="darkMode">
             </div>
             <!-- Add more settings here as your heart desires -->
-            <button type="submit">Save Changes</button>
+            <button type="submit" class="settings-submit">Save Changes</button>
         </form>
     </div>
     <script src="js/settings.js"></script>
