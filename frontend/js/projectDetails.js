@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Grab that sweet, sweet data
         const formData = new FormData(form);
+        const details = formData.get('details'); // Assuming 'details' is the name of your input
+        const projectId = formData.get('projectId'); // Make sure you have an input with name 'projectId'
+
+        const data = { details, projectId };
 
         try {
             // Let's pretend we're doing something useful with it
@@ -13,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    // No 'Content-Type' needed, FormData is smart
+                    'Content-Type': 'application/json' // Needed if you send JSON
                 },
-                body: formData,
+                body: JSON.stringify(data),
             });
 
             if (!response.ok) {
@@ -27,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Here's where you'd typically handle what happens next
             // Redirect to a confirmation page, or clear the form, or show a success message
             alert('Project details submitted successfully!');
-            window.location.href = '/someConfirmationPage.html'; // Redirect somewhere meaningful
+            window.location.href = '/interview.html'; // Redirect somewhere meaningful
         } catch (error) {
             console.error('Oops, failed to add details:', error);
             alert('Failed to submit project details. Please try again.');
