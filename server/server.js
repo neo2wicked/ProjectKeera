@@ -28,6 +28,7 @@ const Response = require('../models/Response');
 const authController = require('../userinfo/authController');
 const dashboardController = require('../userinfo/dashboardController');
 const User = require('../userinfo/userModel');
+const ProjectDetail = require('../userinfo/ProjectDetails');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -236,3 +237,20 @@ authController.login = async (req, res) => {
     res.status(500).send('Error logging in, please try again.');
   }
 };
+
+// Handle POST request for project details
+app.post('/api/projectDetails', async (req, res) => {
+    try {
+        // Assuming you have a model called ProjectDetail or similar
+        const projectDetails = new ProjectDetail({
+            // Populate with actual data fields from req.body
+            details: req.body.details,
+            projectId: req.body.projectId
+        });
+        await projectDetails.save();
+        res.status(201).send({ message: "Project details saved successfully!", projectDetails });
+    } catch (error) {
+        console.error("Error saving project details:", error);
+        res.status(500).send({ message: "Failed to save project details.", error: error.toString() });
+    }
+});
