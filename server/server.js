@@ -6,6 +6,17 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const path = require('path');
 const celebrate = require('celebrate');
+const multer = require('multer'); // Added multer as per the debugging instructions
+const upload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: function (req, file, cb) {
+      if (file.fieldname === "companyLogo") {
+          cb(null, true);
+      } else {
+          cb(new Error("Unexpected field"), false);
+      }
+  }
+});
 
 // Importing models like a boss
 const Settings = require('../models/Settings');
@@ -41,6 +52,9 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
+// Handle favicon.ico requests
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 //Settings Routes
 app.get('/api/settings', async (req, res) => {
@@ -91,34 +105,35 @@ app.post('/organizations', async (req, res) => {
 });
 
 // Create Project
-app.post('/api/projects', async (req, res) => {
-  let { organizationName, name } = req.body;
+app.post('/api/projects', upload.single('companyLogo'), async (req, res) => {
+    console.log("Received fields:", req.body);  // Log all received fields to see what's actually coming through
 
-  if (!organizationName || !name) {
-    return res.status(400).send({ message: "Missing required fields. Try actually filling out the form next time." });
-  }
+    let { organizationName, projectName } = req.body;
 
-  // Normalize the organization name to improve consistency
-  organizationName = organizationName.trim().toLowerCase();
-
-  try {
-    // Check if the organization exists, if not, create it
-    let organization = await Organization.findOne({ name: organizationName });
-    if (!organization) {
-      organization = new Organization({ name: organizationName });
-      await organization.save();
+    if (!organizationName || !projectName) {
+        console.log("Missing fields:", req.body);  // Log what was received if there's an error
+        return res.status(400).send({ message: "Missing required fields. Try actually filling out the form next time.", receivedFields: req.body });
     }
 
-    // Now that we have an organization, either found or created, proceed with project creation
-    const project = new Project({
-      organizationId: organization._id, // Use the found or newly created organization's ID
-      name
-    });
-    await project.save();
-    res.status(201).send(project);
-  } catch (error) {
-    res.status(500).send({ message: "Failed to create project due to an unforeseen server hiccup.", error: error.toString() });
-  }
+    organizationName = organizationName.trim().toLowerCase();
+
+    try {
+        let organization = await Organization.findOne({ name: organizationName });
+        if (!organization) {
+            organization = new Organization({ name: organizationName });
+            await organization.save();
+        }
+
+        const project = new Project({
+            organizationId: organization._id,
+            name: projectName
+        });
+        await project.save();
+        res.status(201).send(project);
+    } catch (error) {
+        console.error("Error creating project:", error);
+        res.status(500).send({ message: "Failed to create project due to an unforeseen server hiccup.", error: error.toString() });
+    }
 });
 
 // Add Question
