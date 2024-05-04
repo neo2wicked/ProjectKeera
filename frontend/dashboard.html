@@ -9,11 +9,12 @@
 <body>
     <div class="container">
         <header class="dashboard-header">
-            <img src="logos/DecisionLoopLogo_Final-removebg-preview.png" alt="Decision Loop Logo" style="height: 60px;"> <!-- Because size matters -->
+            <img src="logos/DecisionLoopLogo_Final-removebg-preview.png" alt="Decision Loop Logo" style="height: 60px;">
             <h1>Dashboard</h1>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
         </header>
         <nav>
-            <ul>
+            <ul id="navMenu">
                 <li><a href="dashboard.html">Home</a></li>
                 <li><a href="loops.html">Loops</a></li>
                 <li><a href="settings.html">Settings</a></li>
@@ -27,5 +28,15 @@
         </div>
     </div>
     <script src="js/dashboard.js"></script>
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('navMenu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
