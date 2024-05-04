@@ -27,16 +27,37 @@ nav {
     border-radius: 5px;
 }
 
+/* Styling for the hamburger icon */
+.hamburger {
+    cursor: pointer;
+    font-size: 30px;
+    display: block; /* Always display the hamburger */
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 1000; /* Make sure it's on top */
+}
+
+/* Initially hide the menu */
 nav ul {
+    display: none;
+    position: absolute;
+    background-color: #3949ab; /* Match navbar color */
+    width: 100%;
+    top: 50px; /* Adjust based on your header's height */
     list-style-type: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    justify-content: center;
 }
 
 nav ul li {
-    margin: 0 20px;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+nav ul li:last-child {
+    border-bottom: none;
 }
 
 nav a {
