@@ -8,7 +8,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Create a New Loop</h1>
+        <h1 id="formTitle">Create a New Loop</h1>
+        <select id="projectSelect">
+            <option value="">Select a Project to Edit</option>
+            <!-- Options filled by JavaScript -->
+        </select>
+        <div class="project-actions">
+            <button type="button" onclick="duplicateProject()" style="display: none;" id="duplicateBtn">Duplicate Project</button>
+            <button type="button" onclick="deleteProject()" style="display: none;" id="deleteBtn">Delete Project</button>
+        </div>
         <form id="projectForm" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="organizationName">Organization Name:</label>
@@ -49,7 +57,7 @@
             <!-- Placeholder for dynamic interview rounds -->
             <div id="interviewRounds"></div>
             <button type="button" onclick="addInterviewRound()">Add Interview Round</button>
-            <button type="submit">Create Project</button>
+            <button type="submit" id="submitBtn">Create Project</button>
         </form>
     </div>
     <script src="js/projectCreation.js"></script>
