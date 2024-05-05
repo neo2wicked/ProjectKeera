@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Failed to load settings');
             }
             const settings = await response.json();
+            document.getElementById('email').value = settings.email;
             document.getElementById('emailNotifications').checked = settings.emailNotifications;
             document.getElementById('darkMode').checked = settings.darkMode;
             // Update other settings as necessary
@@ -22,8 +23,18 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault(); // Prevent the form from doing the default page reload
 
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return; // Stop the form submission
+        }
+
         // Gather the settings from the form
         const formData = {
+            email: document.getElementById('email').value,
+            password: password, // Added password field
             emailNotifications: document.getElementById('emailNotifications').checked,
             darkMode: document.getElementById('darkMode').checked,
             // Collect other settings as necessary
@@ -46,8 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Maybe show a success message or something
             console.log('Settings updated successfully');
+            alert('Settings updated successfully!');
         } catch (error) {
             console.error('Failed to update settings:', error);
+            alert('Failed to update settings: ' + error.message);
         }
     });
 });
