@@ -137,6 +137,54 @@ app.post('/api/projects', upload.single('companyLogo'), async (req, res) => {
     }
 });
 
+// Fetch Project Details
+app.get('/api/projects/:projectId', async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.projectId);
+        if (!project) {
+            return res.status(404).send({ message: 'Project not found' });
+        }
+        res.send(project);
+    } catch (error) {
+        res.status(500).send({ message: 'Server error', error: error.toString() });
+    }
+});
+
+// Update or Create Project
+app.post('/api/projects', upload.single('companyLogo'), async (req, res) => {
+    const { projectId } = req.body;
+    if (projectId) {
+        // Update existing project
+        try {
+            const project = await Project.findByIdAndUpdate(projectId, req.body, { new: true });
+            res.status(200).send(project);
+        } catch (error) {
+            console.error("Error updating project:", error);
+            res.status(500).send({ message: "Failed to update project due to server error.", error: error.toString() });
+        }
+    } else {
+        // Create new project
+        try {
+            const newProject = new Project(req.body);
+            await newProject.save();
+            res.status(201).send(newProject);
+        } catch (error) {
+            console.error("Error creating new project:", error);
+            res.status(500).send({ message: "Failed to create new project due to server error.", error: error.toString() });
+        }
+    }
+});
+
+// Delete Project
+app.delete('/api/projects/:projectId', async (req, res) => {
+    try {
+        await Project.findByIdAndDelete(req.params.projectId);
+        res.send({ message: 'Project deleted successfully' });
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to delete project', error: error.toString() });
+    }
+});
+
 // Add Question
 app.post('/questions', async (req, res) => {
   try {
