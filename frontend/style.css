@@ -420,3 +420,40 @@ button.change-request-submit:hover {
     background-color: #4db6ac; /* Lighter teal for hover, consistent with other buttons */
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
+/* Project Action Button Styles */
+.project-actions {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.project-actions button {
+    background-color: #3498db; /* Blue for general actions */
+    color: white;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.project-actions button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#deleteBtn {
+    background-color: #e74c3c; /* Red for delete action */
+}
+
+#deleteBtn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+#duplicateBtn {
+    background-color: #f39c12; /* Orange for duplicate action */
+}
+
+#duplicateBtn:hover {
+    background-color: #e67e22; /* Darker orange on hover */
+}
