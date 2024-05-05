@@ -1,5 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('projectForm');
+    const projectSelect = document.getElementById('projectSelect');
+    const formTitle = document.getElementById('formTitle');
+    const submitBtn = document.getElementById('submitBtn');
+    const duplicateBtn = document.getElementById('duplicateBtn');
+    const deleteBtn = document.getElementById('deleteBtn');
+
+    projectSelect.addEventListener('change', function() {
+        if (this.value) {
+            loadProjectDetails(this.value);
+            formTitle.textContent = 'Edit Project';
+            submitBtn.textContent = 'Update Project';
+            duplicateBtn.style.display = 'block';
+            deleteBtn.style.display = 'block';
+        } else {
+            formTitle.textContent = 'Create a New Loop';
+            submitBtn.textContent = 'Create Project';
+            duplicateBtn.style.display = 'none';
+            deleteBtn.style.display = 'none';
+        }
+    });
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault(); // Stop the form from submitting the old-fashioned way
@@ -39,4 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Failed to create project:', error);
         }
     });
+
+    // Define loadProjectDetails, duplicateProject, deleteProject functions here
 });
