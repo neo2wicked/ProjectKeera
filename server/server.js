@@ -11,11 +11,11 @@ const { Joi } = require('celebrate');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+        cb(null, 'uploads/videos/')  // Ensure this directory exists or create it dynamically
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop())
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop());
     }
 });
 
@@ -305,17 +305,19 @@ app.post('/api/projectDetails', celebrate({
         interviewRounds: Joi.string().required(), // Validating as a string, assuming you parse it later
         video: Joi.any() // Validation for file uploads is tricky; handle as needed
     })
-}), upload.single('video'), async (req, res) => {
+}), upload.fields([{ name: 'coverVideo', maxCount: 1 }, { name: 'interviewVideos', maxCount: 10 }]), async (req, res) => {
     try {
+        const interviewRounds = JSON.parse(req.body.interviewRounds).map((round, index) => ({
+            ...round,
+            video: req.files.interviewVideos && req.files.interviewVideos[index] ? req.files.interviewVideos[index].path : null
+        }));
+
         const projectDetailsData = {
             details: req.body.details,
             projectId: req.body.projectId,
-            interviewRounds: JSON.parse(req.body.interviewRounds)
+            interviewRounds: interviewRounds,
+            coverVideo: req.files.coverVideo ? req.files.coverVideo[0].path : null
         };
-
-        if (req.file) {
-            projectDetailsData.coverVideo = req.file.path;
-        }
 
         const projectDetails = new ProjectDetail(projectDetailsData);
         await projectDetails.save();
