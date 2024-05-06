@@ -59,39 +59,4 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Failed to create project:', error);
         }
     });
-
-    // Define loadProjectDetails, duplicateProject, deleteProject functions here
-    window.addInterviewRound = function() {
-        const interviewRoundsContainer = document.getElementById('interviewRounds');
-        const newRound = document.createElement('div');
-        newRound.className = 'interview-round';
-        newRound.innerHTML = `
-            <h3>Interview Round ${document.querySelectorAll('.interview-round').length + 1}</h3>
-            <div class="form-group">
-                <label for="summary">Summary of Interview Goals:</label>
-                <textarea id="summary" name="summary"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="questions">List of Questions:</label>
-                <textarea id="questions" name="questions"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate" name="startDate">
-            </div>
-            <div class="form-group">
-                <label for="endDate">End Date:</label>
-                <input type="date" id="endDate" name="endDate">
-            </div>
-            <div class="form-group">
-                <label for="contact">Point of Contact:</label>
-                <input type="text" id="contact" name="contact">
-            </div>
-            <div class="form-group">
-                <label for="video">Cover/Overview Video (optional):</label>
-                <input type="file" id="video" name="video" accept="video/*">
-            </div>
-        `;
-        interviewRoundsContainer.appendChild(newRound);
-    };
 });
