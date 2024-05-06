@@ -18,21 +18,27 @@ const interviewRoundSchema = new mongoose.Schema({
         validate: [validateDate, 'Please enter a valid end date']
     },
     contact: String,
-    video: String, // Assuming you're storing a reference to a video file, adjust as necessary
+    video: {
+        type: String,
+        default: null // Store the path to the video file or null if no video is uploaded
+    }
 }, { timestamps: true });
 
 const projectDetailSchema = new mongoose.Schema({
-    details: String, // Assuming 'details' is a simple text field
+    details: String,
     projectId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project' // Assuming it references a 'Project' model
+        ref: 'Project'
     },
-    interviewRounds: [interviewRoundSchema], // Array of interview rounds
+    interviewRounds: [interviewRoundSchema],
     goalStatement: String,
     startDate: Date,
     stakeholdersSummary: String,
     changeImpacts: String,
-    coverVideo: String, // Optional cover video for the project
+    coverVideo: {
+        type: String,
+        default: null // Optional cover video for the project
+    }
 }, { timestamps: true });
 
 const ProjectDetail = mongoose.model('ProjectDetail', projectDetailSchema);
