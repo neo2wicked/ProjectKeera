@@ -4,57 +4,57 @@ document.addEventListener('DOMContentLoaded', function() {
     const addInterviewRoundBtn = document.getElementById('addInterviewRoundBtn');
 
     addInterviewRoundBtn.addEventListener('click', function() {
+        const roundNumber = document.querySelectorAll('.interview-round').length + 1;
         const newRound = document.createElement('div');
         newRound.className = 'interview-round';
         newRound.innerHTML = `
-            <h3>Interview Round ${document.querySelectorAll('.interview-round').length + 1}</h3>
+            <h3>Interview Round ${roundNumber}</h3>
             <div class="form-group">
-                <label for="summary">Summary of Interview Goals:</label>
-                <textarea id="summary" name="summary"></textarea>
+                <label for="summary${roundNumber}">Summary of Interview Goals:</label>
+                <textarea id="summary${roundNumber}" name="summary${roundNumber}"></textarea>
             </div>
             <div class="form-group">
-                <label for="questions">List of Questions:</label>
-                <textarea id="questions" name="questions"></textarea>
+                <label for="questions${roundNumber}">List of Questions:</label>
+                <textarea id="questions${roundNumber}" name="questions${roundNumber}"></textarea>
             </div>
             <div class="form-group">
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate" name="startDate">
+                <label for="startDate${roundNumber}">Start Date:</label>
+                <input type="date" id="startDate${roundNumber}" name="startDate${roundNumber}">
             </div>
             <div class="form-group">
-                <label for="endDate">End Date:</label>
-                <input type="date" id="endDate" name="endDate">
+                <label for="endDate${roundNumber}">End Date:</label>
+                <input type="date" id="endDate${roundNumber}" name="endDate${roundNumber}">
             </div>
             <div class="form-group">
-                <label for="contact">Point of Contact:</label>
-                <input type="text" id="contact" name="contact">
+                <label for="contact${roundNumber}">Point of Contact:</label>
+                <input type="text" id="contact${roundNumber}" name="contact${roundNumber}">
             </div>
             <div class="form-group">
-                <label for="video">Cover/Overview Video (optional):</label>
-                <input type="file" id="video" name="video" accept="video/*">
+                <label for="video${roundNumber}">Cover/Overview Video (optional):</label>
+                <input type="file" id="video${roundNumber}" name="video${roundNumber}" accept="video/*">
             </div>
         `;
         interviewRoundsContainer.appendChild(newRound);
     });
 
     form.addEventListener('submit', async function(e) {
-        e.preventDefault(); // Because we're too cool for traditional form submission
+        e.preventDefault();
 
-        // Grab that sweet, sweet data
         const formData = new FormData(form);
-        const details = formData.get('details'); // Assuming 'details' is the name of your input
-        const projectId = formData.get('projectId'); // Make sure you have an input with name 'projectId'
-
-        const data = { details, projectId };
+        // Here you would typically also handle the generation of links and QR codes for each interview round
+        // For now, let's just log the formData to see what we've got
+        for (let pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
 
         try {
-            // Let's pretend we're doing something useful with it
             const response = await fetch('/api/projectDetails', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json' // Needed if you send JSON
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(Object.fromEntries(formData))
             });
 
             if (!response.ok) {
@@ -63,8 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const result = await response.json();
             console.log('Details added successfully:', result);
-            // Here's where you'd typically handle what happens next
-            // Redirect to a confirmation page, or clear the form, or show a success message
             alert('Project details submitted successfully!');
             window.location.href = '/interview.html'; // Redirect somewhere meaningful
         } catch (error) {
