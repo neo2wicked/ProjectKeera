@@ -6,17 +6,28 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const path = require('path');
 const celebrate = require('celebrate');
-const multer = require('multer'); // Added multer as per the debugging instructions
-const upload = multer({
-  storage: multer.memoryStorage(),
-  fileFilter: function (req, file, cb) {
-      if (file.fieldname === "companyLogo") {
-          cb(null, true);
-      } else {
-          cb(new Error("Unexpected field"), false);
-      }
-  }
+const multer = require('multer');
+const { Joi } = require('celebrate');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop())
+    }
 });
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('video/')) {
+        cb(null, true);
+    } else {
+        cb(new Error('Only video files are allowed!'), false);
+    }
+};
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 // Importing models like a boss
 const Settings = require('../models/Settings');
@@ -287,14 +298,26 @@ authController.login = async (req, res) => {
 };
 
 // Handle POST request for project details
-app.post('/api/projectDetails', async (req, res) => {
+app.post('/api/projectDetails', celebrate({
+    body: Joi.object().keys({
+        details: Joi.string().required(),
+        projectId: Joi.string().required(),
+        interviewRounds: Joi.string().required(), // Validating as a string, assuming you parse it later
+        video: Joi.any() // Validation for file uploads is tricky; handle as needed
+    })
+}), upload.single('video'), async (req, res) => {
     try {
-        // Assuming you have a model called ProjectDetail or similar
-        const projectDetails = new ProjectDetail({
-            // Populate with actual data fields from req.body
+        const projectDetailsData = {
             details: req.body.details,
-            projectId: req.body.projectId
-        });
+            projectId: req.body.projectId,
+            interviewRounds: JSON.parse(req.body.interviewRounds)
+        };
+
+        if (req.file) {
+            projectDetailsData.coverVideo = req.file.path;
+        }
+
+        const projectDetails = new ProjectDetail(projectDetailsData);
         await projectDetails.save();
         res.status(201).send({ message: "Project details saved successfully!", projectDetails });
     } catch (error) {
