@@ -11,11 +11,11 @@ const interviewRoundSchema = new mongoose.Schema({
     },
     startDate: {
         type: Date,
-        validate: [validateDate, 'Please enter a valid start date']
+        // validate: [validateDate, 'Please enter a valid start date'] // TODO: Implement validateDate function or handle date validation appropriately.
     },
     endDate: {
         type: Date,
-        validate: [validateDate, 'Please enter a valid end date']
+        // validate: [validateDate, 'Please enter a valid end date'] // TODO: Implement validateDate function or handle date validation appropriately.
     },
     contact: String,
     video: {
@@ -43,4 +43,5 @@ const projectDetailSchema = new mongoose.Schema({
 
 const ProjectDetail = mongoose.model('ProjectDetail', projectDetailSchema);
 
+module.exports = ProjectDetail;
 module.exports = ProjectDetail;

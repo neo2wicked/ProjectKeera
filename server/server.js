@@ -8,6 +8,7 @@ const path = require('path');
 const celebrate = require('celebrate');
 const multer = require('multer');
 const { Joi } = require('celebrate');
+const qrcode = require('qrcode');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -298,7 +299,7 @@ authController.login = async (req, res) => {
 };
 
 // Handle POST request for project details
-app.post('/api/projectDetails', celebrate({
+app.post('/api/projectDetails', celebrate.celebrate({
     body: Joi.object().keys({
         details: Joi.string().required(),
         projectId: Joi.string().required(),
@@ -327,3 +328,19 @@ app.post('/api/projectDetails', celebrate({
         res.status(500).send({ message: "Failed to save project details.", error: error.toString() });
     }
 });
+
+// QR Code Generation Route
+const qrCodeRouter = express.Router();
+
+qrCodeRouter.get('/generate-qr', async (req, res) => {
+    try {
+        const url = 'http://yourapp.com/interviewee_interface.html?session=' + encodeURIComponent(JSON.stringify(req.session.questions));
+        const qrCodeImage = await qrcode.toDataURL(url);
+        res.send(`<img src="${qrCodeImage}">`);
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to generate QR code', error: error.toString() });
+    }
+});
+
+app.use('/qr-code', qrCodeRouter);
+

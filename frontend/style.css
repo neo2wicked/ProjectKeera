@@ -1,3 +1,59 @@
+/* Login Page Specific Styles */
+.login-page-container {
+    background-color: #f4f6f8; /* A soothing light grey background */
+    padding: 40px; /* Enough padding to not feel claustrophobic */
+    border-radius: 10px; /* Smooth, rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow for a slight 3D effect */
+    width: 30%; /* Not too wide, not too narrow, just right */
+    margin: 5% auto; /* Centered with some breathing room on top */
+}
+
+.login-page-container h1 {
+    color: #191B1C; /* Consistent with your indigo obsession */
+    margin-bottom: 20px; /* Space out elements, so it doesn't look cramped */
+}
+
+.login-page-container .form-group {
+    margin-bottom: 15px; /* Uniform spacing, because consistency is key */
+}
+
+.login-page-container .form-group label {
+    font-weight: bold; /* Bold labels because why not make them pop */
+    color: #34495e; /* Dark enough to read without squinting */
+}
+
+.login-page-container .form-group input {
+    width: 100%; /* Utilize the space, don't be shy */
+    padding: 10px; /* Padding for comfort typing */
+    border: 1px solid #ccc; /* Subtle borders, because less is more */
+    border-radius: 4px; /* Rounded corners for a gentle touch */
+}
+
+.login-page-container button[type="submit"] {
+    width: 100%; /* Full width for easy clicking */
+    background-color: #6752FF; /* A refreshing teal, because why not */
+    color: white; /* Contrast, my dear Watson */
+    padding: 12px; /* Comfy enough for a button */
+    border-radius: 5px; /* Consistency with those rounded corners */
+    cursor: pointer; /* Because it's a button, duh */
+    margin-top: 20px; /* Space it out from the inputs */
+    transition: background-color 0.3s; /* Smooth transition for hover effects */
+}
+
+.login-page-container button[type="submit"]:hover {
+    background-color: #5437D8; /* Darker teal on hover because effects are cool */
+}
+
+.login-page-container a {
+    color: #3f51b5; /* Keeping it in the family with indigo */
+    text-decoration: none; /* No underlines, please, we're not in the 90s */
+}
+
+.login-page-container a:hover {
+    text-decoration: underline; /* Okay, maybe a little 90s */
+    color: #303f9f; /* Darker on hover, because feedback is necessary */
+}
+
 /* General Styles */
 body, html {
     margin: 0;
@@ -142,6 +198,28 @@ a:hover {
 
 .password-group {
     position: relative;
+    display: flex; /* Aligns children (label, input, link) in a row */
+    align-items: center; /* Vertically centers the items in the container */
+    justify-content: space-between; /* Spreads out the items to use available space */
+    width: 100%; /* Ensures the group takes full width */
+}
+
+.password-group label {
+    margin-right: auto; /* Pushes everything else to the right */
+}
+
+.password-group input {
+    flex-grow: 1; /* Allows the input to grow and fill space */
+    margin-right: 10px; /* Adds some space between the input and the link */
+}
+
+.password-group a {
+    white-space: nowrap; /* Prevents the link from wrapping */
+    font-size: 0.8em; /* Smaller font size for subtlety */
+    color: #3498db; /* Let's make it a nice clickable blue, shall we? */
+    text-decoration: underline; /* It's a link, after all, let's not forget the underline */
+    margin-left: auto; /* Pushes the link to the far right */
+    margin-top: 8px; /* Moves the link down a bit */
 }
 
 .password-group img {
@@ -469,4 +547,64 @@ button.change-request-submit:hover {
 
 #duplicateBtn:hover {
     background-color: #e67e22; /* Darker orange on hover */
+}
+/* Specific Styles for Interviewer Setup Page */
+.interviewer-setup-container {
+    background-color: #f4f6f8; /* A neutral, light background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 50%;
+    min-width: 300px;
+    margin: 50px auto; /* Centering it */
+}
+
+.interviewer-setup-container h1 {
+    color: #3949ab; /* Consistent with your indigo theme */
+    margin-bottom: 20px;
+}
+
+.interviewer-setup-container form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.interviewer-setup-container label {
+    font-weight: bold;
+    color: #34495e;
+    display: block; /* Ensuring the label is on its own line */
+    margin-bottom: 10px;
+}
+
+.interviewer-setup-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.interviewer-setup-container button {
+    background-color: #009688; /* A refreshing teal */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.interviewer-setup-container button:hover {
+    background-color: #4db6ac; /* A lighter teal for hover */
+}
+
+.interviewer-setup-container #questionsList, .interviewer-setup-container #linkOutput {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

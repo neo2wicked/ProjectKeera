@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Interview</title>
+</head>
+<body>
+    <div class="interviewer-setup-container">
+        <h1>Interview Questions Setup</h1>
+        <form id="setupForm">
+            <label for="question">Enter Question:</label>
+            <input type="text" id="question" name="question"><br><br>
+            <button type="button" onclick="addQuestion()">Add Question</button>
+            <button type="button" onclick="generateLink()">Generate Link/QR Code</button>
+        </form>
+        <div id="questionsList"></div>
+        <div id="linkOutput"></div>
+    </div>
+    <script src="/js/interviewer_setup.js"></script>
+</body>
+</html>
