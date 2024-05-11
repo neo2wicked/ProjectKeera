@@ -53,6 +53,10 @@
     text-decoration: underline; /* Okay, maybe a little 90s */
     color: #303f9f; /* Darker on hover, because feedback is necessary */
 }
+.logo {
+    width: 350px; /* Adjust this value to make the logo smaller or larger */
+    height: auto; /* Keeps the aspect ratio intact */
+}
 
 /* General Styles */
 body, html {
