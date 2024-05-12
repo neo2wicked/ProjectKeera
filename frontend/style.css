@@ -113,6 +113,13 @@
     text-decoration: underline; /* Okay, maybe a little 90s */
     color: #303f9f; /* Darker on hover, because feedback is necessary */
 }
+.signup-logo {
+    display: block; /* Keeps the logo as a block-level element */
+    margin: 0 auto; /* Centers the logo horizontally */
+    width: 350px; /* More reasonable width */
+    height: auto; /* Maintains the aspect ratio */
+    max-width: 100%; /* Ensures the logo is responsive and fits the container */
+}
 /* General Styles */
 body, html {
     margin: 0;
