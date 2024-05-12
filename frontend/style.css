@@ -58,6 +58,61 @@
     height: auto; /* Keeps the aspect ratio intact */
 }
 
+/* Signup Page Specific Styles */
+.signup-container {
+    background-color: #f4f6f8; /* Same soothing light grey background */
+    padding: 40px; /* Consistent padding with the login page */
+    border-radius: 10px; /* Smooth, rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow for a slight 3D effect */
+    width: 30%; /* Matching the login page width */
+    margin: 5% auto; /* Centered with some breathing room on top */
+}
+
+.signup-container h1 {
+    color: #191B1C; /* Consistent with the login page */
+    margin-bottom: 20px; /* Space out elements, so it doesn't look cramped */
+}
+
+.signup-container .form-group {
+    margin-bottom: 15px; /* Uniform spacing, because consistency is key */
+}
+
+.signup-container .form-group label {
+    font-weight: bold; /* Bold labels to make them pop */
+    color: #191B1C; /* Dark enough to read without squinting */
+}
+
+.signup-container .form-group input {
+    width: 100%; /* Utilize the space, don't be shy */
+    padding: 10px; /* Padding for comfort typing */
+    border: 1px solid #ccc; /* Subtle borders, because less is more */
+    border-radius: 4px; /* Rounded corners for a gentle touch */
+}
+
+.signup-container button[type="submit"] {
+    width: 100%; /* Full width for easy clicking */
+    background-color: #6752FF; /* A refreshing teal, because why not */
+    color: white; /* Contrast, my dear Watson */
+    padding: 12px; /* Comfy enough for a button */
+    border-radius: 5px; /* Consistency with those rounded corners */
+    cursor: pointer; /* Because it's a button, duh */
+    margin-top: 20px; /* Space it out from the inputs */
+    transition: background-color 0.3s; /* Smooth transition for hover effects */
+}
+
+.signup-container button[type="submit"]:hover {
+    background-color: #5437D8; /* Darker teal on hover because effects are cool */
+}
+
+.signup-container a {
+    color: #3f51b5; /* Keeping it in the family with indigo */
+    text-decoration: none; /* No underlines, please, we're not in the 90s */
+}
+
+.signup-container a:hover {
+    text-decoration: underline; /* Okay, maybe a little 90s */
+    color: #303f9f; /* Darker on hover, because feedback is necessary */
+}
 /* General Styles */
 body, html {
     margin: 0;
