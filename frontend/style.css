@@ -120,6 +120,61 @@
     height: auto; /* Maintains the aspect ratio */
     max-width: 100%; /* Ensures the logo is responsive and fits the container */
 }
+
+.forgot-password-container {
+    background-color: #f4f6f8; /* Consistency is not just a river in Egypt */
+    padding: 40px; /* Enough padding to bounce a quarter off */
+    border-radius: 10px; /* Smooth, like jazz */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Just enough shadow to look deep */
+    width: 30%; /* Uniform width, because we're not animals */
+    margin: 5% auto; /* Perfectly centered, as all things should be */
+}
+
+.forgot-password-container h1 {
+    color: #191B1C; /* Dark and mysterious, yet readable */
+    margin-bottom: 20px; /* Breathing room, because claustrophobia is real */
+}
+
+.forgot-password-container .form-group {
+    margin-bottom: 15px; /* Consistent spacing, because we're civilized */
+}
+
+.forgot-password-container .form-group label {
+    font-weight: bold; /* Bold, because whispers don't get attention */
+    color: #191B1C; /* Seriously, can you even read anything lighter? */
+}
+
+.forgot-password-container .form-group input {
+    width: 100%; /* Full utilization of space, because waste not */
+    padding: 10px; /* Padding, for comfort */
+    border: 1px solid #ccc; /* Borders, because boundaries are important */
+    border-radius: 4px; /* Rounded, because sharp corners are dangerous */
+}
+
+.forgot-password-container button[type="submit"] {
+    width: 100%; /* Because partial buttons are a crime against humanity */
+    background-color: #6752FF; /* A splash of color, because life isn't just grey */
+    color: white; /* Contrast, because who reads dark text on a dark background? */
+    padding: 12px; /* Thicc padding, for that plush button feel */
+    border-radius: 5px; /* Consistently rounded, like your morning bagel */
+    cursor: pointer; /* Pointy, because it's a pointer */
+    margin-top: 20px; /* Space it out, like your high school dance */
+    transition: background-color 0.3s; /* Smooth transitions, because life is rough enough */
+}
+
+.forgot-password-container button[type="submit"]:hover {
+    background-color: #5437D8; /* Darker on hover, because drama */
+}
+
+.forgot-password-container a {
+    color: #3f51b5; /* Indigo, because it's the new black */
+    text-decoration: none; /* Clean, because clutter is for hoarders */
+}
+
+.forgot-password-container a:hover {
+    text-decoration: underline; /* A hint of the 90s, for nostalgia */
+    color: #303f9f; /* Darker on hover, because actions have consequences */
+}
 /* General Styles */
 body, html {
     margin: 0;
