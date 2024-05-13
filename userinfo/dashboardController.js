@@ -11,9 +11,10 @@ const dashboardController = async (req, res) => {
       const user = await User.findById(req.session.userId);
       if (user) {
         // If the user is found, send user-specific data to the dashboard
-        // Including the first name for a personalized greeting
+        // Including the first name and email for a personalized greeting and account info
         res.json({
-          firstName: user.firstName
+          firstName: user.firstName,
+          email: user.email // Include the email in the response
         });
       } else {
         // If the user is not found, possibly because the session userId is invalid
@@ -25,4 +26,5 @@ const dashboardController = async (req, res) => {
     }
   }
 };
+module.exports = dashboardController;
 module.exports = dashboardController;
