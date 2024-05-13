@@ -189,6 +189,7 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Center items horizontally */
+    padding-bottom: 80px; /* Add padding to the bottom to ensure there's space for account info */
 }
 
 .sidebar-logo {
@@ -213,6 +214,35 @@
 
 .sidebar-menu li a:hover {
     background-color: #34495E; /* Darker background on hover */
+}
+
+.account-info {
+    position: absolute; /* Absolute positioning */
+    bottom: 100px; /* Stick to the bottom */
+    left: 0;
+    width: 100%; /* Span the full width of the sidebar */
+    text-align: center; /* Center the text */
+    padding: 10px 0; /* Padding top and bottom */
+    background-color: #2C3E50; /* Ensure it matches the sidebar */
+}
+
+.account-info img {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Maintain aspect ratio */
+    border-radius: 50%; /* Circle shape */
+    margin-bottom: 10px; /* Space between image and text */
+}
+
+.account-info .user-name,
+.account-info .user-email {
+    display: block; /* Each on a new line */
+    font-size: 14px; /* Appropriate font size */
+    color: #ffffff; /* White text for readability */
+}
+
+.account-info .user-email {
+    font-size: 12px; /* Slightly smaller font size for email */
+    opacity: 0.75; /* Slightly transparent for hierarchy */
 }
 
 /* Style for the New Project link */
