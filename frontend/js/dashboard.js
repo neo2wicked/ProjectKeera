@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', async function() {
+    console.log("Dashboard script executing...");
     const userNameElement = document.getElementById('userName');
     const userEmailElement = document.getElementById('userEmail');
+
+    console.log("Elements:", userNameElement, userEmailElement); // Check if elements are null
 
     if (!userNameElement || !userEmailElement) {
         console.error('User elements not found. Check your HTML, genius.');
