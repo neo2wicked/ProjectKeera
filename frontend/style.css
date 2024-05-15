@@ -245,6 +245,15 @@
     opacity: 0.75; /* Slightly transparent for hierarchy */
 }
 
+.container, .dashboard-content, .settings-container {
+    margin-left: 270px; /* Adjust based on the sidebar width */
+}
+
+.project-actions button {
+    display: none; /* Hide buttons initially */
+    /* Other styling remains unchanged */
+}
+
 /* Style for the New Project link */
 .new-project-link {
     display: block; /* Make it a block to fill the container */
