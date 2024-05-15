@@ -7,32 +7,47 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="settings-container">
-        <h1>Settings</h1>
-        <form id="settingsForm">
-            <div class="settings-form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="settings-form-group">
-                <label for="password">New Password:</label>
-                <input type="password" id="password" name="password" placeholder="New Password">
-            </div>
-            <div class="settings-form-group">
-                <label for="confirmPassword">Confirm New Password:</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm New Password">
-            </div>
-            <div class="settings-form-group">
-                <label for="emailNotifications">Email Notifications</label>
-                <input type="checkbox" id="emailNotifications" name="emailNotifications">
-            </div>
-            <div class="settings-form-group">
-                <label for="darkMode">Dark Mode</label>
-                <input type="checkbox" id="darkMode" name="darkMode">
-            </div>
-            <button type="submit" class="settings-submit">Save Changes</button>
-        </form>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const response = await fetch('base.html');
+            const baseContent = await response.text();
+            document.body.innerHTML = baseContent;
+            document.getElementById('pageTitle').innerText = 'Settings';
+            document.getElementById('mainContent').innerHTML = `
+                <div class="settings-container">
+                    <h1>Settings</h1>
+                    <form id="settingsForm">
+                        <div class="settings-form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="settings-form-group">
+                            <label for="password">New Password:</label>
+                            <input type="password" id="password" name="password" placeholder="New Password">
+                        </div>
+                        <div class="settings-form-group">
+                            <label for="confirmPassword">Confirm New Password:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm New Password">
+                        </div>
+                        <div class="settings-form-group">
+                            <label for="emailNotifications">Email Notifications</label>
+                            <input type="checkbox" id="emailNotifications" name="emailNotifications">
+                        </div>
+                        <div class="settings-form-group">
+                            <label for="darkMode">Dark Mode</label>
+                            <input type="checkbox" id="darkMode" name="darkMode">
+                        </div>
+                        <button type="submit" class="settings-submit">Save Changes</button>
+                    </form>
+                </div>
+            `;
+            // Load common.js to fetch user data
+            const script = document.createElement('script');
+            script.src = 'js/common.js';
+            document.body.appendChild(script);
+        });
+    </script>
     <script src="js/settings.js"></script>
 </body>
 </html>
+
