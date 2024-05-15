@@ -2,6 +2,7 @@ const path = require('path');
 const User = require('./userModel'); // Assuming userModel.js is in the same directory. Adjust the path as necessary.
 
 const dashboardController = async (req, res) => {
+  console.log("Session ID:", req.session.userId); // Debug: Log session ID
   if (!req.session.userId) {
     // If the user is not logged in, redirect to the login page
     res.redirect('/');
@@ -9,6 +10,7 @@ const dashboardController = async (req, res) => {
     try {
       // Find the user by their session userId
       const user = await User.findById(req.session.userId);
+      console.log("User found:", user); // Debug: Log user object
       if (user) {
         // If the user is found, send user-specific data to the dashboard
         // Including the first name and email for a personalized greeting and account info
@@ -21,7 +23,7 @@ const dashboardController = async (req, res) => {
         res.status(404).send('User not found');
       }
     } catch (error) {
-      console.error("Dashboard disaster:", error); // Upgraded to console.error because we're fancy
+      console.error("Dashboard error:", error); // Upgraded to console.error because we're fancy
       res.status(500).send('Error accessing the dashboard, please try again.');
     }
   }
