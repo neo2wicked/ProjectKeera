@@ -7,45 +7,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="dashboard-header">
-            <img src="logos/DecisionLoopLogo_Final-removebg-preview.png" alt="Decision Loop Logo" style="height: 60px;">
-            <h1>Dashboard</h1>
-        </header>
-        <!-- Sidebar navigation -->
-        <aside class="sidebar">
-            <img src="logos/DecisionLoopLogo_Alt.png" alt="Decision Loop Logo" class="sidebar-logo">
-            <div class="new-project">
-                <a href="loops.html" class="new-project-link">New Project</a>
-            </div>
-            <ul class="sidebar-menu">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="loops.html">Loops</a></li>
-                <li><a href="settings.html">Settings</a></li>
-            </ul>
-            <div class="account-info">
-                <!-- <img src="path_to_your_profile_image.jpg" alt="Profile Image" class="profile-img"> -->
-                <p class="user-name" id="userName">User</p>
-                <p class="user-email" id="userEmail">email@example.com</p>
-            </div>
-        </aside>
-        <div class="dashboard-content">
-            <h2>Welcome, <span id="userName">User</span></h2>
-            <p>This is your dashboard. Here you can manage your change requests, view updates, and adjust your settings.</p>
-            <!-- Additional dashboard content goes here -->
-        </div>
-    </div>
-    <script src="js/dashboard.js"></script>
     <script>
-        function toggleMenu() {
-            var menu = document.getElementById('navMenu');
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'block';
+        document.addEventListener('DOMContentLoaded', async function() {
+            const response = await fetch('base.html');
+            const baseContent = await response.text();
+            document.body.innerHTML = baseContent;
+
+            // Fetch user data before setting innerHTML of mainContent
+            const userDataResponse = await fetch('/api/dashboard', { credentials: 'include' });
+            if (!userDataResponse.ok) {
+                throw new Error(`Failed to fetch user info. Status: ${userDataResponse.status}`);
             }
-        }
+            const { firstName, email } = await userDataResponse.json();
+
+            document.getElementById('pageTitle').innerText = 'Dashboard';
+            document.getElementById('mainContent').innerHTML = `
+                <h2>Welcome, <span id="userName">${firstName || 'User'}</span></h2>
+                <p>This is your dashboard. Here you can manage your change requests, view updates, and adjust your settings.</p>
+                <p class="user-email">${email || 'No email on file.'}</p>
+                <!-- Additional dashboard content goes here -->
+            `;
+
+            // Load scripts dynamically after user data is fetched and DOM is updated
+            const commonScript = document.createElement('script');
+            commonScript.src = 'js/common.js';
+            document.body.appendChild(commonScript);
+        });
     </script>
 </body>
 </html>
-</html>
+
