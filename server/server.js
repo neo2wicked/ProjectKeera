@@ -344,3 +344,5 @@ qrCodeRouter.get('/generate-qr', async (req, res) => {
 
 app.use('/qr-code', qrCodeRouter);
 
+// Make sure you have this line somewhere after configuring the app and before starting the server
+app.get('/api/dashboard', dashboardController);
