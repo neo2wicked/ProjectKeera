@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Layout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <img src="logos/DecisionLoopLogo_Alt.png" alt="Decision Loop Logo" class="sidebar-logo">
+        <div class="new-project">
+            <a href="loops.html" class="new-project-link">New Project</a>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="loops.html">Loops</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+        <div class="account-info">
+            <p class="user-name" id="userName">Loading...</p>
+            <p class="user-email" id="userEmail">Loading...</p>
+        </div>
+    </aside>
+    <div class="container">
+        <header class="dashboard-header">
+            <img src="logos/DecisionLoopLogo_Final-removebg-preview.png" alt="Decision Loop Logo" style="height: 60px;">
+            <h1 id="pageTitle">Page Title</h1>
+        </header>
+        <div class="main-content" id="mainContent">
+            <!-- Main content will be injected here -->
+        </div>
+    </div>
+    <script src="js/common.js"></script>
+    <script>
+        // Fetch user data and update sidebar dynamically
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('/api/dashboard', { credentials: 'include' });
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch user info. Status: ${response.status}`);
+                }
+                const { firstName, email } = await response.json();
+
+                document.getElementById('userName').textContent = firstName || 'User';
+                document.getElementById('userEmail').textContent = email || 'No email on file.';
+            } catch (error) {
+                console.error('Failed to load user data:', error);
+                document.getElementById('userName').textContent = 'User';
+                document.getElementById('userEmail').textContent = 'No email on file.';
+            }
+        });
+    </script>
+</body>
+</html>
+</html>
