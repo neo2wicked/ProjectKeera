@@ -5,59 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loop Creation</title>
     <link rel="stylesheet" href="style.css">
+    <script src="js/sidebar-component.js" defer></script>
     <script src="js/projectCreation.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1 id="formTitle">Create a New Loop</h1>
-        <select id="projectSelect">
-            <option value="">Select a Project to Edit</option>
-            <!-- Options filled by JavaScript -->
-        </select>
-        <div class="project-actions">
-            <button type="button" onclick="duplicateProject()" style="display: none;" id="duplicateBtn">Duplicate Project</button>
-            <button type="button" onclick="deleteProject()" style="display: none;" id="deleteBtn">Delete Project</button>
-        </div>
-        <form id="projectForm" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="organizationName">Organization Name:</label>
-                <input type="text" id="organizationName" name="organizationName" required>
-            </div>
-            <div class="form-group">
-                <label for="companyLogo">Company Logo:</label>
-                <input type="file" id="companyLogo" name="companyLogo" accept="image/*">
-            </div>
-            <div class="form-group">
-                <label for="departmentName">Department Name:</label>
-                <input type="text" id="departmentName" name="departmentName" required>
-            </div>
-            <div class="form-group">
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" required>
-            </div>
-            <div class="form-group">
-                <label for="projectName">Project Name:</label>
-                <input type="text" id="projectName" name="projectName" required>
-            </div>
-            <div class="form-group">
-                <label for="executiveSponsor">Project Executive Sponsor:</label>
-                <input type="text" id="executiveSponsor" name="executiveSponsor" required>
-            </div>
-            <div class="form-group">
-                <label for="programLead">Program Lead:</label>
-                <input type="text" id="programLead" name="programLead" required>
-            </div>
-            <div class="form-group">
-                <label for="projectManager">Project Manager:</label>
-                <input type="text" id="projectManager" name="projectManager" required>
-            </div>
-            <div class="form-group">
-                <label for="changeManager">Change Manager:</label>
-                <input type="text" id="changeManager" name="changeManager" required>
-            </div>
-            <!-- Placeholder for dynamic interview rounds -->
-            <button type="submit" id="submitBtn">Create Project</button>
-        </form>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const response = await fetch('base.html');
+            const baseContent = await response.text();
+            document.body.innerHTML = baseContent;
+            document.getElementById('pageTitle').innerText = 'Loop Creation';
+            document.getElementById('mainContent').innerHTML = `
+                <div class="container">
+                    <header class="dashboard-header">
+                        <img src="logos/DecisionLoopLogo_Final-removebg-preview.png" alt="Decision Loop Logo" style="height: 60px;">
+                        <h1>Loop Creation</h1>
+                    </header>
+                    <div class="dashboard-content">
+                        <h1 id="formTitle">Create a New Loop</h1>
+                        <select id="projectSelect" onchange="toggleProjectActions()">
+                            <option value="">Select a Project to Edit</option>
+                            <!-- Options filled by JavaScript -->
+                        </select>
+                        <div class="project-actions">
+                            <button type="button" id="duplicateBtn">Duplicate Project</button>
+                            <button type="button" id="deleteBtn">Delete Project</button>
+                        </div>
+                        <form id="projectForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="organizationName">Organization Name:</label>
+                                <input type="text" id="organizationName" name="organizationName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyLogo">Company Logo:</label>
+                                <input type="file" id="companyLogo" name="companyLogo" accept="image/*">
+                            </div>
+                            <div class="form-group">
+                                <label for="departmentName">Department Name:</label>
+                                <input type="text" id="departmentName" name="departmentName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location:</label>
+                                <input type="text" id="location" name="location" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectName">Project Name:</label>
+                                <input type="text" id="projectName" name="projectName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="executiveSponsor">Project Executive Sponsor:</label>
+                                <input type="text" id="executiveSponsor" name="executiveSponsor" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="programLead">Program Lead:</label>
+                                <input type="text" id="programLead" name="programLead" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectManager">Project Manager:</label>
+                                <input type="text" id="projectManager" name="projectManager" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="changeManager">Change Manager:</label>
+                                <input type="text" id="changeManager" name="changeManager" required>
+                            </div>
+                            <!-- Placeholder for dynamic interview rounds -->
+                            <button type="submit" id="submitBtn">Create Project</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            // Load common.js to fetch user data
+            const script = document.createElement('script');
+            script.src = 'js/common.js';
+            document.body.appendChild(script);
+        });
+    </script>
+    <script src="js/projectActions.js" defer></script>
 </body>
 </html>
+
