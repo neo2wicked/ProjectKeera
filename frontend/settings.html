@@ -15,30 +15,55 @@
             document.getElementById('pageTitle').innerText = 'Settings';
             document.getElementById('mainContent').innerHTML = `
                 <div class="settings-container">
-                    <h1>Settings</h1>
-                    <form id="settingsForm">
+                    <div class="settings-tabs">
+                        <button class="tab-button active" data-tab="general">General</button>
+                        <button class="tab-button" data-tab="billing">Billing</button>
+                        <button class="tab-button" data-tab="team">Team</button>
+                        <button class="tab-button" data-tab="notifications">Notifications</button>
+                        <button class="tab-button" data-tab="security">Security</button>
+                    </div>
+                    <div class="tab-content active" id="general">
+                        <h2>Basic details</h2>
+                        <div class="user-info">
+                            <img src="path/to/user-image.jpg" alt="User Image" class="user-image">
+                            <div class="user-details">
+                                <p class="user-name">Keera Godfrey</p>
+                                <p class="user-email">kgodfrey@ariscommunications.com</p>
+                            </div>
+                            <button class="change-button">Change</button>
+                        </div>
+                        <form id="settingsForm">
+                            <div class="settings-form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="settings-form-group">
+                                <label for="password">New Password:</label>
+                                <input type="password" id="password" name="password" placeholder="New Password">
+                            </div>
+                            <div class="settings-form-group">
+                                <label for="confirmPassword">Confirm New Password:</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm New Password">
+                            </div>
+                            <button type="submit" class="settings-submit">Save Changes</button>
+                        </form>
+                    </div>
+                    <div class="tab-content" id="notifications">
+                        <h2>Notifications</h2>
                         <div class="settings-form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="loopCompletionNotification">Loop Completion Notification</label>
+                            <input type="checkbox" id="loopCompletionNotification" name="loopCompletionNotification">
                         </div>
                         <div class="settings-form-group">
-                            <label for="password">New Password:</label>
-                            <input type="password" id="password" name="password" placeholder="New Password">
+                            <label for="newChangeRequestNotification">New Change Request Notifications</label>
+                            <input type="checkbox" id="newChangeRequestNotification" name="newChangeRequestNotification">
                         </div>
-                        <div class="settings-form-group">
-                            <label for="confirmPassword">Confirm New Password:</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm New Password">
-                        </div>
-                        <div class="settings-form-group">
-                            <label for="emailNotifications">Email Notifications</label>
-                            <input type="checkbox" id="emailNotifications" name="emailNotifications">
-                        </div>
-                        <div class="settings-form-group">
-                            <label for="darkMode">Dark Mode</label>
-                            <input type="checkbox" id="darkMode" name="darkMode">
-                        </div>
-                        <button type="submit" class="settings-submit">Save Changes</button>
-                    </form>
+                    </div>
+                    <div class="tab-content" id="account">
+                        <h2>Account</h2>
+                        <button class="sign-out-button">Sign Out</button>
+                        <button class="delete-account-button">Delete Account</button>
+                    </div>
                 </div>
             `;
             // Load common.js to fetch user data
