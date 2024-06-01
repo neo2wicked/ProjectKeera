@@ -946,3 +946,40 @@ button.change-request-submit:hover {
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+/* Timeline Styles */
+.timeline-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.timeline-container h2 {
+    color: #2C3E50;
+    margin-bottom: 20px;
+}
+
+#timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.timeline-project {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timeline-project-name {
+    width: 150px;
+    font-weight: bold;
+    color: #2C3E50;
+}
+
+.timeline-project-bar {
+    height: 20px;
+    background-color: #3949ab;
+    border-radius: 4px;
+}
