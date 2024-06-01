@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Base Layout</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .search-container {
+            text-align: center;
+            width: 100%;
+        }
+        #searchBar {
+            width: 100%;
+            padding: 10px 10px 10px 300px; /* Increased left padding to move text further to the right */
+            font-size: 16px;
+            box-sizing: border-box; /* Ensure padding is included in the width */
+        }
+    </style>
 </head>
 <body>
     <aside class="sidebar">
@@ -22,14 +34,13 @@
             <p class="user-email" id="userEmail">Loading...</p>
         </div>
     </aside>
-    <div class="container">
-        <header class="dashboard-header">
-            <img src="logos/DecisionLoopLogo_Final-removebg-preview.png" alt="Decision Loop Logo" style="height: 60px;">
-            <h1 id="pageTitle">Page Title</h1>
-        </header>
-        <div class="main-content" id="mainContent">
-            <!-- Main content will be injected here -->
+    <header class="dashboard-header">
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search Past Loops...">
         </div>
+    </header>
+    <div class="main-content" id="mainContent">
+        <!-- Main content will be injected here -->
     </div>
     <script src="js/common.js"></script>
     <script>
@@ -52,5 +63,6 @@
         });
     </script>
 </body>
+</html>
 </html>
 </html>
