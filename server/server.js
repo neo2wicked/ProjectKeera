@@ -346,3 +346,12 @@ app.use('/qr-code', qrCodeRouter);
 
 // Make sure you have this line somewhere after configuring the app and before starting the server
 app.get('/api/dashboard', dashboardController);
+
+// New route for project timeline
+app.get('/api/timeline', (req, res) => {
+    res.json([
+        { "name": "Project 1", "duration": 5 },
+        { "name": "Project 2", "duration": 10 },
+        { "name": "Project 3", "duration": 7 }
+    ]);
+});
