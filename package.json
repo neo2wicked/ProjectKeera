@@ -4,7 +4,7 @@
     "description": "A brief description of your project",
     "main": "server/server.js",
     "scripts": {
-        "start": "node server/server.js"
+        "start": "node server.js"
     },
     "keywords": [],
     "author": "Your Name",
