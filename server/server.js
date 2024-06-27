@@ -357,3 +357,6 @@ app.get('/api/timeline', (req, res) => {
         { "name": "Project 3", "duration": 7 }
     ]);
 });
+
+
+module.exports=app;
