@@ -47,7 +47,9 @@ const port = process.env.PORT || 3000;
 
 const store = new MongoDBStore({
   uri: process.env.DB_CONNECTION_STRING,
-  collection: 'sessions'
+  collection: 'sessions',
+  useNewUrlParser: true, 
+  useUnifiedTopology: true
 });
 
 store.on('error', function(error) {
