@@ -64,7 +64,7 @@ app.use(session({
   store: store
 }));
 
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
+app.use(express.static(path.join(__dirname, '../', 'frontend')));
 
 // Handle favicon.ico requests
 app.get('/favicon.ico', (req, res) => res.status(204));
