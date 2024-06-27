@@ -66,11 +66,7 @@ app.use(session({
   store: store
 }));
 
-app.use(express.static(path.join(__dirname, '../', 'frontend')));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
-});
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // Handle favicon.ico requests
 app.get('/favicon.ico', (req, res) => res.status(204));
