@@ -2,9 +2,9 @@
     "name": "pkeera",
     "version": "0.1.0",
     "description": "A brief description of your project",
-    "main": "server.js",
+    "main": "server/server.js",
     "scripts": {
-        "start": "node server.js"
+        "start": "node server/server.js"
     },
     "keywords": [],
     "author": "Your Name",
