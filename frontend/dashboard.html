@@ -7,21 +7,35 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="sidebar-placeholder"></div>
     <div id="pageTitle"></div>
     <div id="mainContent"></div>
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            const response = await fetch('base.html');
-            const baseContent = await response.text();
-            document.body.innerHTML = baseContent;
+        // Function to load content dynamically
+        async function loadContent(url, targetId) {
+            const response = await fetch(url);
+            const content = await response.text();
+            document.getElementById(targetId).innerHTML = content;
+        }
 
-            // Fetch user data before setting innerHTML of mainContent
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Load the sidebar once and keep it throughout the session
+            await loadContent('base.html', 'sidebar-placeholder');
+
+            // Listen for custom navigate events from the sidebar
+            document.addEventListener('navigate', function(event) {
+                const pageUrl = event.detail.href;
+                loadContent(pageUrl, 'mainContent'); // Load the content into the mainContent div
+            });
+
+            // Fetch user data
             const userDataResponse = await fetch('/api/dashboard', { credentials: 'include' });
             if (!userDataResponse.ok) {
                 throw new Error(`Failed to fetch user info. Status: ${userDataResponse.status}`);
             }
             const { firstName, email } = await userDataResponse.json();
 
+            // Update dynamic content
             document.getElementById('pageTitle').innerText = 'Dashboard';
             document.getElementById('mainContent').innerHTML = `
                 <h2>Welcome, <span id="userName">${firstName || 'User'}</span></h2>
@@ -30,7 +44,7 @@
                 <!-- Additional dashboard content goes here -->
             `;
 
-            // Load scripts dynamically after user data is fetched and DOM is updated
+            // Ensure scripts are loaded after the DOM is fully prepared
             const commonScript = document.createElement('script');
             commonScript.src = 'js/common.js';
             document.body.appendChild(commonScript);
@@ -38,4 +52,3 @@
     </script>
 </body>
 </html>
-
