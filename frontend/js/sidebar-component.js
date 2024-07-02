@@ -32,9 +32,25 @@ class Sidebar extends HTMLElement {
                 <img src="path_to_your_profile_image.jpg" alt="Profile Image" class="profile-img">
                 <p class="user-name" id="userName">User Name</p>
                 <p class="user-email" id="userEmail">email@example.com</p>
-                <!-- Add other sidebar items here -->
+                <a href="dashboard.html">Dashboard</a>
+                <a href="loops.html">Loops</a>
+                <a href="settings.html">Settings</a>
             </div>
         `;
+
+        // Add click event listeners to links
+        const links = this.shadowRoot.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent the default link behavior
+                // Dispatch a custom event with the href value
+                this.dispatchEvent(new CustomEvent('navigate', {
+                    bubbles: true, // This allows the event to bubble up through the shadow boundary
+                    composed: true, // This allows the event to reach the outer document
+                    detail: { href: link.getAttribute('href') }
+                }));
+            });
+        });
     }
 }
 
