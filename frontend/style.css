@@ -951,37 +951,99 @@ body {
 #duplicateBtn:hover {
     background-color: #e67e22; /* Darker orange on hover */
 }
-/* Specific Styles for Interviewer Setup Page */
+/* Base Layout */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8;
+}
+
+/* Flexbox Layout for Sidebar and Main Content */
+body {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Custom Sidebar Styles */
+custom-sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Interviewer Setup Container */
 .interviewer-setup-container {
-    background-color: #f4f6f8; /* A neutral, light background */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 50%;
-    min-width: 300px;
-    margin: 50px auto; /* Centering it */
+    display: flex;
+    flex-grow: 1;
+    min-height: 100vh;
 }
 
-.interviewer-setup-container h1 {
-    color: #3949ab; /* Consistent with your indigo theme */
+/* Main Content Styles */
+.main-content {
+    flex-grow: 1;
+    background-color: #fff;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Components Sidebar Styles */
+.components-sidebar {
+    width: 250px;
+    background-color: #555;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between buttons */
+}
+
+.components-sidebar button {
+    background-color: #666;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.components-sidebar button:hover {
+    background-color: #777;
+}
+
+.main-content h1 {
+    color: #3949ab;
+}
+
+.title-page, .questions {
     margin-bottom: 20px;
-}
-
-.interviewer-setup-container form {
-    background-color: #ffffff;
     padding: 20px;
+    background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.interviewer-setup-container label {
-    font-weight: bold;
-    color: #34495e;
-    display: block; /* Ensuring the label is on its own line */
-    margin-bottom: 10px;
+/* Button Styles */
+button {
+    background-color: #009688;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.interviewer-setup-container input[type="text"] {
+button:hover {
+    background-color: #4db6ac;
+}
+
+/* Input and Label Styles */
+input[type="text"], select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -989,27 +1051,11 @@ body {
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.interviewer-setup-container button {
-    background-color: #009688; /* A refreshing teal */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    transition: background-color 0.3s;
-}
-
-.interviewer-setup-container button:hover {
-    background-color: #4db6ac; /* A lighter teal for hover */
-}
-
-.interviewer-setup-container #questionsList, .interviewer-setup-container #linkOutput {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #ecf0f1;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+label {
+    font-weight: bold;
+    color: #34495e;
+    display: block;
+    margin-bottom: 10px;
 }
 /* Timeline Styles */
 .timeline-container {
