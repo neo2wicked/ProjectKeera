@@ -9,14 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'GET',
                 credentials: 'include'
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                console.log('Search results:', data); // Here you would update the DOM with the search results
+                console.log('Search results:', data); // Update the DOM with the search results
             })
             .catch(error => {
                 console.error('Failed to fetch search results:', error);
