@@ -18,5 +18,14 @@
         <div id="linkOutput"></div>
     </div>
     <script src="/js/interviewer_setup.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const storedData = JSON.parse(sessionStorage.getItem('projectData'));
+            if (storedData) {
+                console.log('Project Data:', storedData);
+                // You can now use this data to pre-fill forms or use it in other ways
+            }
+        });
+    </script>
 </body>
 </html>
