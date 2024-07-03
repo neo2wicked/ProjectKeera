@@ -34,7 +34,7 @@
                                     <h1>Loop Creation</h1>
                                 </header>
                                 <div class="dashboard-content">
-                                    <h1 id="formTitle">Create a New Loop</h1>
+                                    <h1 id="formTitle">Loop Details</h1>
                                     <select id="projectSelect" onchange="toggleProjectActions()">
                                         <option value="">Select a Project to Edit</option>
                                         <!-- Options filled by JavaScript -->
@@ -45,24 +45,20 @@
                                     </div>
                                     <form id="projectForm" enctype="multipart/form-data">
                                         <div class="form-group">
+                                            <label for="projectName">Title:</label>
+                                            <input type="text" id="projectName" name="projectName" required>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="organizationName">Organization Name:</label>
                                             <input type="text" id="organizationName" name="organizationName" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="companyLogo">Company Logo:</label>
-                                            <input type="file" id="companyLogo" name="companyLogo" accept="image/*">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="departmentName">Department Name:</label>
+                                            <label for="departmentName">Department:</label>
                                             <input type="text" id="departmentName" name="departmentName" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="location">Location:</label>
                                             <input type="text" id="location" name="location" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="projectName">Project Name:</label>
-                                            <input type="text" id="projectName" name="projectName" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="executiveSponsor">Project Executive Sponsor:</label>
@@ -73,14 +69,16 @@
                                             <input type="text" id="programLead" name="programLead" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="projectManager">Project Manager:</label>
-                                            <input type="text" id="projectManager" name="projectManager" required>
+                                            <label for="objective">Objective:</label>
+                                            <input type="text" id="objective" name="objective" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="changeManager">Change Manager:</label>
-                                            <input type="text" id="changeManager" name="changeManager" required>
+                                            <label for="companyLogo">Company Logo:</label>
+                                            <div class="file-upload">
+                                                <span>Drag & drop files or Browse</span>
+                                                <input type="file" id="companyLogo" name="companyLogo" accept="image/*">
+                                            </div>
                                         </div>
-                                        <!-- Placeholder for dynamic interview rounds -->
                                         <button type="submit" id="submitBtn">Create Project</button>
                                     </form>
                                 </div>
