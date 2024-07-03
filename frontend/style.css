@@ -343,6 +343,8 @@ body, html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: 
     #ecf0f1; /* As white as a blank canvas */
+    width: 50;
+    overflow-x: hidden;
 }
 
 .container {
@@ -791,6 +793,69 @@ button.change-request-submit:hover {
     background-color: #303f9f; /* Darker on hover */
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
+
+/* Ensure the main content container aligns with the sidebar */
+.container, .dashboard-content, .settings-container {
+    margin-left: 250px; /* Presuming your sidebar is 250px wide */
+    padding: 20px; /* Let's not go crazy with 200px, shall we? */
+    background-color: #f4f6f8; /* Consistency is key, good choice */
+    border-radius: 0; /* Flat as a pancake, got it */
+    max-width: calc(100% - 250px); /* Now, that's how you do math in CSS */
+    margin-top: 0; /* Move it up by removing any top margin */
+    margin-bottom: 0; /* And let's not have any bottom margin either */
+    box-sizing: border-box; /* Include padding in width calculations */
+}
+
+/* Full-width containers without internal segmentation */
+.form-group {
+    width: 100%; /* Use full width to align with the container edges */
+    padding: 15px;
+    margin-bottom: 20px; /* Consistent vertical spacing */
+}
+
+/* Seamless background */
+body {
+    background-color: #f4f6f8; /* Ensure the body background matches the content areas */
+}
+
+/* Full-width search bar */
+.top-bar {
+    width: 100%;  /* Full width */
+    padding: 0;  /* Remove padding to ensure no internal space is affecting child elements */
+    margin: 0;  /* Ensure no margin is affecting the positioning */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* Optional: for visual effect */
+}
+
+#searchBar {
+    width: 100%;  /* Ensure it spans the full width of its container */
+    padding: 8px 10px;  /* Adjust padding if necessary */
+    margin: 0;  /* Remove any margin that might be affecting the layout */
+    box-sizing: border-box;  /* Include padding and border in the element's total width */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 5px 10px; /* Less padding on smaller screens */
+    }
+
+    #searchBar {
+        font-size: 14px; /* Smaller font size for smaller devices */
+    }
+}
+
+/* Full-width containers without internal segmentation */
+.form-group {
+    width: 100%; /* Use full width to align with the container edges */
+    padding: 15px;
+    margin-bottom: 20px; /* Consistent vertical spacing */
+}
+
+/* Seamless background */
+body {
+    background-color: #f4f6f8; /* Ensure the body background matches the content areas */
+}
+
 /* Project Details Page Styles */
 .project-details-container {
     background-color: #f4f6f8; /* Lighter, neutral background similar to other forms */
@@ -983,3 +1048,4 @@ button.change-request-submit:hover {
     background-color: #3949ab;
     border-radius: 4px;
 }
+
