@@ -4,28 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setup Interview</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <custom-sidebar></custom-sidebar>
     <div class="interviewer-setup-container">
-        <h1>Interview Questions Setup</h1>
-        <form id="setupForm">
-            <label for="question">Enter Question:</label>
-            <input type="text" id="question" name="question"><br><br>
-            <button type="button" onclick="addQuestion()">Add Question</button>
-            <button type="button" onclick="generateLink()">Generate Link/QR Code</button>
-        </form>
-        <div id="questionsList"></div>
-        <div id="linkOutput"></div>
+        <div class="main-content">
+            <h1 id="projectTitle">Loading...</h1>
+            <div class="title-page">
+                <h2>Title Page</h2>
+                <p>Welcome Text Marketing department This session will help us understand your perspectives on your organization, management and colleagues. All answers will remain anonymous, please answer to the best of your knowledge and sentiments.</p>
+                <button>Start</button>
+            </div>
+            <!-- Button to add a new question -->
+            <button id="addQuestion">Add Question</button>
+            <!-- Container for dynamically added questions -->
+            <div id="questionsContainer"></div>
+        </div>
+        <div class="components-sidebar">
+            <h1>Components</h1>
+            <button>Insert Title Text</button>
+            <button>Insert Descriptive Text</button>
+            <button>Insert Image</button>
+            <button>Insert Video</button>
+            <button>Insert Audio Playback</button>
+            <button>Insert Type Input</button>
+            <button>Insert Video Recording</button>
+            <button>Insert Audio Recording</button>
+            <button>Insert User File Upload</button>
+        </div>
     </div>
     <script src="/js/interviewer_setup.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const storedData = JSON.parse(sessionStorage.getItem('projectData'));
-            if (storedData) {
-                console.log('Project Data:', storedData);
-                // You can now use this data to pre-fill forms or use it in other ways
+            if (storedData && storedData.projectName) {
+                document.getElementById('projectTitle').textContent = storedData.projectName;
             }
+
+            document.querySelector('.components-sidebar').addEventListener('click', function(e) {
+                if (e.target.tagName === 'BUTTON') {
+                    addComponentToLastQuestion(e.target.textContent);
+                }
+            });
+
+            document.getElementById('addQuestion').addEventListener('click', function() {
+                const questionsContainer = document.getElementById('questionsContainer');
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <h2 contenteditable="true">New Question</h2>
+                    <div class="question-content"></div>
+                `;
+                questionsContainer.appendChild(questionDiv);
+            });
         });
+
+        function addComponentToLastQuestion(type) {
+            const questionsContainer = document.getElementById('questionsContainer');
+            const lastQuestion = questionsContainer.lastElementChild;
+            if (!lastQuestion) {
+                alert("Please add a question first.");
+                return;
+            }
+            const questionContent = lastQuestion.querySelector('.question-content');
+            switch (type) {
+                case 'Insert Title Text':
+                    questionContent.innerHTML += '<h3 contenteditable="true">New Title</h3>';
+                    break;
+                case 'Insert Descriptive Text':
+                    questionContent.innerHTML += '<p contenteditable="true">New Description</p>';
+                    break;
+                case 'Insert Image':
+                case 'Insert Video':
+                case 'Insert Audio Playback':
+                    questionContent.innerHTML += `<input type="file" accept="${type.split(' ')[1].toLowerCase()}/*" onchange="insertMedia(this)">`;
+                    break;
+                case 'Insert Type Input':
+                    questionContent.innerHTML += '<input type="text" placeholder="Type your answer here...">';
+                    break;
+                case 'Insert Video Recording':
+                case 'Insert Audio Recording':
+                    questionContent.innerHTML += `<button onclick="startRecording(this, '${type.split(' ')[1].toLowerCase()}')">Start ${type.split(' ')[1]} Recording</button>`;
+                    break;
+                case 'Insert User File Upload':
+                    questionContent.innerHTML += '<input type="file" onchange="handleFileUpload(this)">';
+                    break;
+            }
+        }
+
+        function insertMedia(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileContent = e.target.result;
+                    const fileType = input.accept.split('/')[0];
+                    input.outerHTML = fileType === 'image' ? `<img src="${fileContent}" alt="Uploaded Image">` :
+                                    fileType === 'video' ? `<video controls src="${fileContent}"></video>` :
+                                    `<audio controls src="${fileContent}"></audio>`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function startRecording(button, type) {
+            // Placeholder function for starting recording
+            console.log(`Start recording ${type}`);
+        }
+
+        function handleFileUpload(input) {
+            // Placeholder function for handling file uploads
+            console.log('File uploaded:', input.files[0].name);
+        }
     </script>
 </body>
 </html>
