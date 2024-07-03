@@ -84,6 +84,13 @@
                                 </div>
                             </div>
                         `;
+                        // After setting innerHTML, now attach the form submit listener
+                        const form = document.getElementById('projectForm');
+                        if (form) {
+                            attachFormSubmitListener(form);
+                        } else {
+                            console.error('Form not found, cannot attach event listener');
+                        }
                     }
                     // Dynamically load scripts that depend on the new content
                     const commonScript = document.createElement('script');
@@ -97,6 +104,29 @@
                 console.error('Failed to load content:', error);
             }
         });
+
+        function attachFormSubmitListener(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const formData = {
+                    projectName: document.getElementById('projectName').value,
+                    organizationName: document.getElementById('organizationName').value,
+                    departmentName: document.getElementById('departmentName').value,
+                    location: document.getElementById('location').value,
+                    executiveSponsor: document.getElementById('executiveSponsor').value,
+                    programLead: document.getElementById('programLead').value,
+                    objective: document.getElementById('objective').value,
+                    companyLogo: document.getElementById('companyLogo').files[0] ? document.getElementById('companyLogo').files[0].name : ''
+                };
+
+                // Store the form data in sessionStorage
+                sessionStorage.setItem('projectData', JSON.stringify(formData));
+
+                // Redirect to the Interviewer Setup page
+                window.location.href = 'interviewer_setup.html';
+            });
+        }
     </script>
 </body>
 </html>
